@@ -10,7 +10,8 @@ def home():
     character_table = requests.get(base_url).json()
     char_list = {}
     for key in character_table.keys():
-        char_list[key] = character_table[key]["name"]
+        if not character_table[key]["subProfessionId"] == "notchar1":
+            char_list[key] = character_table[key]["name"]
     response = json.dumps(char_list)
     return response,200,{"Content-Type":"application/json"}
 
