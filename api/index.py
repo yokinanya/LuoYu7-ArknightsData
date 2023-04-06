@@ -1,6 +1,7 @@
 from flask import Flask
 import json
 import requests
+import re
 
 app = Flask(__name__)
 
@@ -10,7 +11,7 @@ def home():
     character_table = requests.get(base_url).json()
     char_list = {}
     for key in character_table.keys():
-        if not character_table[key]["subProfessionId"] == "notchar1":
+        if re.match("notchar",character_table[key]["subProfessionId"]) is False:
             char_list[key] = character_table[key]["name"]
     response = json.dumps(char_list)
     return response,200,{"Content-Type":"application/json"}
